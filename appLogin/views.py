@@ -52,14 +52,12 @@ def user_profile(request):
 @login_required
 def userchangedProfile(request):
     current_user = request.user
-    registered=False
     form = userchangedProfileForm(instance=current_user)
     if request.method =='POST':
         form = userchangedProfileForm(request.POST,instance=current_user)
         if form.is_valid():
             form.save()
-            registered=True
             form = userchangedProfileForm(instance=current_user)
-    return render(request,'app_login/userchangedProfile.html',context={'form':form,'registered':registered})
+    return render(request,'app_login/userchangedProfile.html',context={'form':form})
 
     
