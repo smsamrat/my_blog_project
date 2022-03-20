@@ -83,4 +83,14 @@ def Add_Profile_Pic(request):
             return HttpResponseRedirect(reverse('user_profile'))
     return render(request,'app_login/Add_Profile_Pic.html',context={'form':form})
 
+@login_required
+def Change_Profile_Pic(request):
+    form = AddProfilePic(instance=request.user.user_profiles)
+    if request.method=='POST':
+        form = AddProfilePic(request.POST, request.FILES,instance=request.user.user_profiles)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('user_profile'))
+    return render(request,'app_login/Add_Profile_Pic.html',context={'form':form})
+
 

@@ -4,7 +4,8 @@
 
 {% block content%}
     {% if user.user_profiles%}
-    <img src="/media/{{user.user_profiles.profile_pics}}" class="rounded-circle" width="100px" alt="">
+    <img src="/media/{{user.user_profiles.profile_pics}}" class="rounded-circle" width="100px" alt=""><br>
+    <a href="{% url 'Change_Profile_Pic' %}"><button class="btn btn-success btn-sm">Change Profile Pic</button></a>
     {% else %}
     <img src="/media/profile_pics/avatar.jpg" class="rounded-circle" width="100px" alt=""><br>
     <a href="{% url 'Add_Profile_Pic' %}"><button class="btn btn-success btn-sm">Add Profile Pic</button></a>

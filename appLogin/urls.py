@@ -11,4 +11,5 @@ urlpatterns = [
    path('userchangedProfile/',views.userchangedProfile, name='userchangedProfile'),
    path('changePass/',views.changedPassword, name='changePass'),
    path('Add-Profile-Pic/',views.Add_Profile_Pic, name='Add_Profile_Pic'),
+   path('change-Profile-Pic/',views.Change_Profile_Pic, name='Change_Profile_Pic'),
 ]
