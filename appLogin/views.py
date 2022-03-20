@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import redirect, render
 from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse  
@@ -8,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from appLogin.forms import signUpForm
-from appLogin.forms import userchangedProfileForm
+from appLogin.forms import userchangedProfileForm, AddProfilePic
 
 
 # Create your views here.
@@ -69,4 +70,17 @@ def changedPassword(request):
         if form.is_valid():
             form.save()
     return render(request,'app_login/changePass.html',context={'form':form})
+
+@login_required
+def Add_Profile_Pic(request):
+    form = AddProfilePic()
+    if request.method=='POST':
+        form = AddProfilePic(request.POST, request.FILES)
+        if form.is_valid():
+            user_object = form.save(commit=False)
+            user_object.user = request.user
+            form.save()
+            return HttpResponseRedirect(reverse('user_profile'))
+    return render(request,'app_login/Add_Profile_Pic.html',context={'form':form})
+
 

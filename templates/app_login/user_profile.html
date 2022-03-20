@@ -3,6 +3,12 @@
 {% block title%} User Profile {% endblock title%}
 
 {% block content%}
+    {% if user.user_profiles%}
+    <img src="/media/{{user.user_profiles.profile_pics}}" class="rounded-circle" width="100px" alt="">
+    {% else %}
+    <img src="/media/profile_pics/avatar.jpg" class="rounded-circle" width="100px" alt=""><br>
+    <a href="{% url 'Add_Profile_Pic' %}"><button class="btn btn-success btn-sm">Add Profile Pic</button></a>
+    {% endif %}
     <h1>username: {{user.username}}</h1>
     <h1>email: {{user.email}}</h1>
     <h1>name: {{user.first_name}} {{user.last_name}}</h1>
