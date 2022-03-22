@@ -14,7 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class CreateBlogs(LoginRequiredMixin,CreateView):
     model = Blog
     template_name = 'app_blog/create_blogs.html'
-    fields =('blog_title','slug','blog_content','blog_images',)
+    fields =('blog_title','blog_content','blog_images',)
     
     def form_valid(self, form):
         obj_Blog = form.save(commit=False)
@@ -24,6 +24,10 @@ class CreateBlogs(LoginRequiredMixin,CreateView):
         obj_Blog.save()
         return HttpResponseRedirect(reverse('index'))
 
+class BlogList(ListView):
+    context_object_name = 'blogs'
+    model = Blog
+    template_name = 'app_blog/blog.html'
 
 def Blog(request):
     return render(request,'app_blog/blog.html',context={})

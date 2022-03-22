@@ -11,7 +11,9 @@ class Blog(models.Model):
     blog_images = models.ImageField(upload_to='blog_images')
     publish_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
-
+    
+    class Meta:
+        ordering =['-publish_date']
     def __str__(self):
         return self.blog_title
 

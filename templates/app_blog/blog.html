@@ -2,5 +2,8 @@
 {% block title%} blog page {% endblock title%}
 
 {% block content%}
-    <h1>I am blog page </h1>
+    {% for blog in blogs %}
+        <h2>{{blog.blog_title}}</h2>
+        <p>{{blog.publish_date}}</p>
+    {% endfor%}
 {% endblock content%}
