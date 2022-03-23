@@ -5,5 +5,7 @@
     {% for blog in blogs %}
         <h2>{{blog.blog_title}}</h2>
         <p>{{blog.publish_date}}</p>
+        <p>{{blog.blog_content}} <a href="page_details/{{blog.slug}}">Read More</a></p>
+        
     {% endfor%}
 {% endblock content%}

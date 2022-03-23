@@ -9,8 +9,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
-
-
 class CreateBlogs(LoginRequiredMixin,CreateView):
     model = Blog
     template_name = 'app_blog/create_blogs.html'
@@ -24,11 +22,26 @@ class CreateBlogs(LoginRequiredMixin,CreateView):
         obj_Blog.save()
         return HttpResponseRedirect(reverse('index'))
 
+    
+
 class BlogList(ListView):
     context_object_name = 'blogs'
     model = Blog
     template_name = 'app_blog/blog.html'
 
-def Blog(request):
-    return render(request,'app_blog/blog.html',context={})
+
+
+
+def blogs_details(request,slug):
+    blog_details_page= Blog.objects.get(slug = slug)
+    context ={
+        'blog':blog_details_page
+    }
+    
+    return render(request,'app_blog/blog_details.html',context)
+
+
+
+
+
 
