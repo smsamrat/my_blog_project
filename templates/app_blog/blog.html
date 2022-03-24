@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load custom_filters %}
 {% block title%} blog page {% endblock title%}
 
 {% block content%}
     {% for blog in blogs %}
         <h2>{{blog.blog_title}}</h2>
         <p>{{blog.publish_date}}</p>
-        <p>{{blog.blog_content}} <a href="page_details/{{blog.slug}}">Read More</a></p>
+        <p>{{blog.blog_content|range_filter}} <a href="page_details/{{blog.slug}}">Read More</a></p>
         
     {% endfor%}
 {% endblock content%}

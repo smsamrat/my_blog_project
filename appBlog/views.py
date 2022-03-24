@@ -22,14 +22,10 @@ class CreateBlogs(LoginRequiredMixin,CreateView):
         obj_Blog.save()
         return HttpResponseRedirect(reverse('index'))
 
-    
-
 class BlogList(ListView):
     context_object_name = 'blogs'
     model = Blog
     template_name = 'app_blog/blog.html'
-
-
 
 
 def blogs_details(request,slug):
