@@ -6,6 +6,7 @@
     {% for blog in blogs %}
         <h2>{{blog.blog_title}}</h2>
         <p>{{blog.publish_date}}</p>
+        <p>{{blog.Blog_commnet.count}} Comment | {{blog.Blog_like.count}} Like</p>
         <p>{{blog.blog_content|range_filter}} <a href="page_details/{{blog.slug}}">Read More</a></p>
         
     {% endfor%}

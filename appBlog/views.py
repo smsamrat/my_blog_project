@@ -32,6 +32,11 @@ class BlogList(ListView):
 def blogs_details(request,slug):
     blog_details_page= Blog.objects.get(slug = slug)
     comment_form = CommentForm()
+    already_liked = Likes.objects.filter(blog=blog_details_page, user=request.user)
+    if already_liked:
+        liked =True
+    else:
+        liked=False
     if request.method=='POST':
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
@@ -42,10 +47,28 @@ def blogs_details(request,slug):
             return HttpResponseRedirect(reverse('blog_details', kwargs={'slug':slug}))
     context ={
         'blog_details_page':blog_details_page,
-        'comment_form':comment_form
+        'comment_form':comment_form,
+        'liked':liked ,
     }
     
     return render(request,'app_blog/blog_details.html',context)
+
+def blog_likes(request, pk):
+    blog = Blog.objects.get(pk=pk)
+    user = request.user
+    already_liked = Likes.objects.filter(blog=blog, user=user)
+    if not already_liked:
+        liked_post = Likes(blog=blog, user=user)
+        liked_post.save()
+    return HttpResponseRedirect(reverse('blog_details', kwargs={'slug':blog.slug}))
+
+def blog_unlikes(request, pk):
+    blog=Blog.objects.get(pk=pk)
+    user = request.user
+    already_liked = Likes.objects.filter(blog=blog, user = user)
+    already_liked.delete()
+    return HttpResponseRedirect(reverse('blog_details', kwargs={'slug':blog.slug}))
+
 
 
 

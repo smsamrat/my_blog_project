@@ -6,8 +6,20 @@
         <div class="container">
                 <h2>{{blog_details_page.blog_title}}</h2>
                 <p>{{blog_details_page.publish_date}}</p>
+                <p>{{blog_details_page.Blog_commnet.count}} Comment | {{blog_details_page.Blog_like.count}} Like</p>
                 <img src="{{blog_details_page.blog_images.url}}" width="300px" alt=""><br><br>
                 <p>{{blog_details_page.blog_content}}</p>
+        </div>
+        <div class="container">
+                <div class="row">
+                        <div class="col-12">
+                                {% if not liked %}
+                                <a href="{% url 'blog_liked' pk=blog_details_page.pk %}"><i class="fa-solid fa-thumbs-up fa-2x "></i></a>
+                                {% else %}
+                                <a href="{% url 'blog_unliked' pk=blog_details_page.pk %}"><i class="fa-solid fa-thumbs-down fa-2x"></i></a>
+                                {% endif %}
+                        </div>
+                </div>
         </div>
         <div class="container">
                 <div class="row">
