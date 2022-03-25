@@ -5,6 +5,7 @@ from appBlog.models import Blog,Comment,Likes
 from django.urls import reverse,reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from appBlog.forms import CommentForm
 
 
 # Create your views here.
@@ -30,8 +31,18 @@ class BlogList(ListView):
 
 def blogs_details(request,slug):
     blog_details_page= Blog.objects.get(slug = slug)
+    comment_form = CommentForm()
+    if request.method=='POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment_obj = comment_form.save(commit=False)
+            comment_obj.user = request.user
+            comment_obj.blog=blog_details_page
+            comment_form.save()
+            return HttpResponseRedirect(reverse('blog_details', kwargs={'slug':slug}))
     context ={
-        'blog':blog_details_page
+        'blog_details_page':blog_details_page,
+        'comment_form':comment_form
     }
     
     return render(request,'app_blog/blog_details.html',context)
