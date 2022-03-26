@@ -23,6 +23,10 @@ class CreateBlogs(LoginRequiredMixin,CreateView):
         obj_Blog.save()
         return HttpResponseRedirect(reverse('index'))
 
+class MyBlog(LoginRequiredMixin, TemplateView):
+     template_name = 'app_blog/my_blog.html'
+
+
 class BlogList(ListView):
     context_object_name = 'blogs'
     model = Blog
@@ -68,6 +72,15 @@ def blog_unlikes(request, pk):
     already_liked = Likes.objects.filter(blog=blog, user = user)
     already_liked.delete()
     return HttpResponseRedirect(reverse('blog_details', kwargs={'slug':blog.slug}))
+
+class UpdateBlog(LoginRequiredMixin, UpdateView):
+    model = Blog
+    fields = ('blog_title', 'blog_content','blog_images')
+    template_name = 'app_blog/edit_blog.html'
+
+    def get_success_url(self,**kwargs):
+        return reverse_lazy('blog_details', kwargs={'slug':self.object.slug})
+
 
 
 

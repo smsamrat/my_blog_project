@@ -3,12 +3,12 @@
 {% block title%} blog page {% endblock title%}
 
 {% block content%}
-    {% for blog in blogs %}
+    {% for blog in user.Blog_post.all %}
         <h2>{{blog.blog_title}}</h2>
-        <p>{{blog.publish_date}}</p>
         <p>@{{blog.user}}</p>
-        <p>{{blog.Blog_commnet.count}} Comment | {{blog.Blog_like.count}} Like</p>
+        <img src="{{ blog.blog_images.url}}" alt="" width="300px">
         <p>{{blog.blog_content|range_filter}} <a href="page_details/{{blog.slug}}">Read More</a></p>
-        
+        <a href="{% url 'edit_blog' pk=blog.pk %}">Edit</a>
     {% endfor%}
+    
 {% endblock content%}
