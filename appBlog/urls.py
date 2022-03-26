@@ -12,6 +12,7 @@ urlpatterns = [
    path('unliked/<pk>/',views.blog_unlikes, name="blog_unliked"),
    path('my-blog/',views.MyBlog.as_view(), name="my_blog"),
    path('edit-blog/<pk>/',views.UpdateBlog.as_view(), name="edit_blog"),
+   path('upadate-comment/<pk>/',views.UpdateComment.as_view(), name="edit_commnet"),
 ]
 
 

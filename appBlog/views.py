@@ -81,6 +81,14 @@ class UpdateBlog(LoginRequiredMixin, UpdateView):
     def get_success_url(self,**kwargs):
         return reverse_lazy('blog_details', kwargs={'slug':self.object.slug})
 
+class UpdateComment(LoginRequiredMixin, UpdateView):
+    model =Comment
+    fields=('comment_text',)
+    template_name = 'app_blog/edit_comment.html'
+
+    def get_success_url(self,**kwargs):
+        return reverse_lazy('blog_details', kwargs={'slug':self.object.blog.slug})
+
 
 
 
