@@ -15,6 +15,9 @@ class Blog(models.Model):
     
     class Meta:
         ordering =['-publish_date']
+        verbose_name = 'Blog'
+        verbose_name_plural = 'Blogs'
+
     def __str__(self):
         return self.blog_title
 
@@ -27,9 +30,8 @@ class Comment(models.Model):
     def __str__(self):
         return self.comment_text
 
-class Likes(models.Model):
+class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_like')
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='Blog_like')
-
     def __str__(self):
         return self.user+ "Likes" +self.blog

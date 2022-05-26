@@ -1,7 +1,7 @@
 import uuid
 from django.shortcuts import render,HttpResponseRedirect
 from django.views.generic import CreateView,View,ListView,DetailView,TemplateView,UpdateView,DeleteView
-from appBlog.models import Blog,Comment,Likes
+from appBlog.models import Blog,Comment,Like
 from django.urls import reverse,reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -36,7 +36,7 @@ class BlogList(ListView):
 def blogs_details(request,slug):
     blog_details_page= Blog.objects.get(slug = slug)
     comment_form = CommentForm()
-    already_liked = Likes.objects.filter(blog=blog_details_page, user=request.user)
+    already_liked = Like.objects.filter(blog=blog_details_page, user=request.user)
     if already_liked:
         liked =True
     else:
